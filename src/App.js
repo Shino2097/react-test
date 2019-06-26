@@ -1,36 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
 //関数コンポーネント
 const App = () => {
-
-  const profiles = [
-    {name: "taro", age: 10},
-    {name: "jiro", age: 20},
-    {name: "test", age:3}
-    
-  ]
-
   return (
-    <div>
-      {
-        //mapは配列データを各1要素ごとに扱うメソッド
-        //要素がprofile, インデックスがindex
-        profiles.map( (profile, index, array) => {
-          return <User key={index} name={profile.name} age={profile.age}></User>
-        })
-      }
-    </div>
+      <Counter></Counter>
   )
 }
 
-const User = (props) => {
-  return <div>My name is {props.name}. I am {props.age} years old.</div>
+//
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    console.log(this.state);
+    this.state = {count: 0};
+    console.log(this.state);
+  }
+
+  //メソッド名= ()引数, => {}function
+  handlePlusButton = () => {
+    console.log('handlePlusButton');
+    console.log(this.state.count);
+    this.setState({count: this.state.count + 1});
+  }
+
+  handleMinusButton = () => {
+    console.log('handleMinusButton');
+    console.log(this.state.count);
+    this.setState({count: this.state.count - 1});
+  }
+
+  render() {
+    return(
+      <React.Fragment>
+        <div>count: {this.state.count}</div>
+        <button onClick={this.handlePlusButton}>+1</button>
+        <button onClick={this.handleMinusButton}>-1</button>
+        <div>buttonのonclick等の関数には、onclick=｛関数名｝という書き方で書く</div>
+      </React.Fragment>
+    )
+  }
 }
 
-//propsについて型チェック
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired
-}
 export default App;
